@@ -23,6 +23,7 @@ class TodoList extends React.Component {
             className="input"
             value={this.state.inputValue}
             onChange={ this.handleInputChange }
+            ref={ (input) => { this.input = input } }
           />
           <button onClick={ this.handleCLickButton }>新增</button>
         </div>
@@ -47,7 +48,7 @@ class TodoList extends React.Component {
   }
 
   handleInputChange(e) {
-    const inputValue = e.target.value;
+    const inputValue = this.input.value;
     this.setState(() => ({ inputValue }));
   }
 
