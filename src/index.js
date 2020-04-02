@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TodoList from './TodoList';
-import App from './App';
+import AntdTodoList from './AntdTodo';
+import 'antd/dist/antd.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AntdTodoList />
   </React.StrictMode>,
   document.getElementById('root')
 );
