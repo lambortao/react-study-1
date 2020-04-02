@@ -1,6 +1,11 @@
 import React from 'react';
 import { Input, Button, List } from 'antd'
 import store from './store';
+import {
+  CHANGE_INPUT_VALUE,
+  INPUT_BTN_CLICK,
+  INPUT_ITEM_DELETE
+} from './store/actionTypes.js'
 
 class AntdTodo extends React.Component {
 
@@ -35,7 +40,7 @@ class AntdTodo extends React.Component {
           size="large"
           bordered
           dataSource={ this.state.list }
-          renderItem={item => <List.Item>{item}</List.Item>}
+          renderItem={(item, index) => <List.Item onClick={ this.handleItemDelete.bind(this, index) }>{item}</List.Item>}
         />
       </div>
     )
@@ -45,7 +50,7 @@ class AntdTodo extends React.Component {
     // 这里的 action 是固定格式，type 为标识符，会传到 reducers 用来判断操作，value 是可选的，是传的值
     // 使用 store.dispatch 可以将定义的 action 传给 store
     const action = {
-      type: 'change_input_value',
+      type: CHANGE_INPUT_VALUE,
       value: e.target.value
     }
 
@@ -53,7 +58,14 @@ class AntdTodo extends React.Component {
   }
   handleBtnClick() {
     const action = {
-      type: 'input_btn_click'
+      type: INPUT_BTN_CLICK
+    }
+    store.dispatch(action);
+  }
+  handleItemDelete(index) {
+    const action = {
+      type: INPUT_ITEM_DELETE,
+      index
     }
     store.dispatch(action);
   }

@@ -2,6 +2,11 @@
  * reducers，就是笔记本里面的数据
  */
 import _ from 'lodash';
+import {
+  CHANGE_INPUT_VALUE,
+  INPUT_BTN_CLICK,
+  INPUT_ITEM_DELETE
+} from './actionTypes.js'
 
 const defaultState = {
   inputValue: '123',
@@ -12,16 +17,21 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   console.log(state, action);
-  if (action.type === 'change_input_value') {
+  if (action.type === CHANGE_INPUT_VALUE) {
     const newState = _.cloneDeep(state);
     newState.inputValue = action.value;
     // 修改好新的数据后将数据直接返回到 store
     return newState;
   }
-  if (action.type === 'input_btn_click') {
+  if (action.type === INPUT_BTN_CLICK) {
     const newState = _.cloneDeep(state);
     newState.list.push(newState.inputValue);
     newState.inputValue = '';
+    return newState;
+  }
+  if (action.type === INPUT_ITEM_DELETE) {
+    const newState = _.cloneDeep(state);
+    newState.list.splice(action.index, 1);
     return newState;
   }
   return state;
