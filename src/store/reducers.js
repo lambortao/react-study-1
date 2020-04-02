@@ -16,21 +16,18 @@ const defaultState = {
 // reducers 可以接受 state ，但是绝对不能修改 state
 
 export default (state = defaultState, action) => {
-  console.log(state, action);
+  const newState = _.cloneDeep(state);
   if (action.type === CHANGE_INPUT_VALUE) {
-    const newState = _.cloneDeep(state);
     newState.inputValue = action.value;
     // 修改好新的数据后将数据直接返回到 store
     return newState;
   }
   if (action.type === INPUT_BTN_CLICK) {
-    const newState = _.cloneDeep(state);
     newState.list.push(newState.inputValue);
     newState.inputValue = '';
     return newState;
   }
   if (action.type === INPUT_ITEM_DELETE) {
-    const newState = _.cloneDeep(state);
     newState.list.splice(action.index, 1);
     return newState;
   }
