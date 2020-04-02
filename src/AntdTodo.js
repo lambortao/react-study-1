@@ -1,11 +1,11 @@
 import React from 'react';
-import { Input, Button, List } from 'antd'
 import store from './store';
 import {
   getChangeInputValueFunc,
   getInputBtnClickFunc,
   getInputItemDeleteFunc
 } from './store/actionCreator.js';
+import AntdTodoUI from './AntdTodoUI';
 
 class AntdTodo extends React.Component {
 
@@ -17,32 +17,20 @@ class AntdTodo extends React.Component {
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleStoreChange = this.handleStoreChange.bind(this);
     this.handleBtnClick = this.handleBtnClick.bind(this);
+    this.handleItemDelete = this.handleItemDelete.bind(this);
     // 一旦store发生变化，store.subscribe 会感知到
     store.subscribe(this.handleStoreChange);
   }
 
   render() {
     return ( 
-      <div style={{width: 500, padding: 20}}>
-        <div style={{marginBottom: '10px', display: 'flex'}}>
-          <Input
-            style={{marginRight: 10}}
-            placeholder="todo info"
-            value={ this.state.inputValue }
-            onChange={ this.handleChangeInput }
-          />
-          <Button 
-            type="primary"
-            onClick={ this.handleBtnClick }
-          >提交</Button>
-        </div>
-        <List
-          size="large"
-          bordered
-          dataSource={ this.state.list }
-          renderItem={(item, index) => <List.Item onClick={ this.handleItemDelete.bind(this, index) }>{item}</List.Item>}
-        />
-      </div>
+      <AntdTodoUI 
+        inputValue={ this.state.inputValue }
+        list={ this.state.list }
+        handleChangeInput={ this.handleChangeInput }
+        handleBtnClick={ this.handleBtnClick }
+        handleItemDelete={ this.handleItemDelete }
+      />
     )
   }
 
