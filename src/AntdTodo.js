@@ -3,7 +3,8 @@ import store from './store';
 import {
   getChangeInputValueFunc,
   getInputBtnClickFunc,
-  getInputItemDeleteFunc
+  getInputItemDeleteFunc,
+  getInitList
 } from './store/actionCreator.js';
 import AntdTodoUI from './AntdTodoUI';
 
@@ -34,6 +35,11 @@ class AntdTodo extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const action = getInitList();
+    store.dispatch(action);
+  }
+
   handleChangeInput(e) {
     // 使用 store.dispatch 可以将定义的 action 传给 store
     const action = getChangeInputValueFunc(e.target.value);
@@ -50,7 +56,9 @@ class AntdTodo extends React.Component {
 
   // 这个函数是 store.subscribe 触发的，触发的条件是 store 发生了变化
   handleStoreChange() {
-    this.setState(store.getState());
+    this.setState(() => {
+      return store.getState();
+    });
   }
 }
 

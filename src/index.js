@@ -4,8 +4,6 @@ import AntdTodoList from './AntdTodo';
 import 'antd/dist/antd.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AntdTodoList />
-  </React.StrictMode>,
+  <AntdTodoList />,
   document.getElementById('root')
 );
