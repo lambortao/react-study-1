@@ -5,16 +5,16 @@ import _ from 'lodash';
 import {
   CHANGE_INPUT_VALUE,
   INPUT_BTN_CLICK,
-  INPUT_ITEM_DELETE
+  INPUT_ITEM_DELETE,
+  INIT_LIST_ACTION
 } from './actionTypes.js'
 
 const defaultState = {
-  inputValue: '123',
-  list: [1, 2, 3]
+  inputValue: '',
+  list: []
 }
 
 // reducers 可以接受 state ，但是绝对不能修改 state
-
 export default (state = defaultState, action) => {
   const newState = _.cloneDeep(state);
   if (action.type === CHANGE_INPUT_VALUE) {
@@ -29,6 +29,10 @@ export default (state = defaultState, action) => {
   }
   if (action.type === INPUT_ITEM_DELETE) {
     newState.list.splice(action.index, 1);
+    return newState;
+  }
+  if (action.type === INIT_LIST_ACTION) {
+    newState.list = action.value;
     return newState;
   }
   return state;

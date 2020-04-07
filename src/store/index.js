@@ -4,12 +4,28 @@
  * 那样 store 就能获取到 reducers 了
  */
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
+
+// redux-thunk
+// import thunk from 'redux-thunk';
+
+// redux-sage
+import createSagaMiddleware from 'redux-saga'
+import mySaga from './mySaga';
+const sagaMiddleware = createSagaMiddleware()
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
+// redux-thunk
+// const enhancer = composeEnhancers( applyMiddleware(thunk));
+
+const enhancer = composeEnhancers( applyMiddleware(sagaMiddleware) );
 
 const store = createStore(
   reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  
+  enhancer
 );
+
+sagaMiddleware.run(mySaga)
 
 export default store;
