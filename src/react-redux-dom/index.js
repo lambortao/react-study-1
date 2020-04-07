@@ -9,10 +9,6 @@ import { connect } from 'react-redux';
 import store from './store';
 
 class TodoList extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
   
   componentDidMount() {
     const action = getInitList();
