@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useRef } from 'react';
 
 function countReducer(state, action) {
   switch(action.type) {
@@ -15,8 +15,10 @@ function countReducer(state, action) {
 
 
 function MyHooks() {
+  const divRef = useRef();
+  console.log(divRef);
   const [count, dispatchCount] = useReducer(countReducer, 0);
-  return <div onClick={ () => dispatchCount({ type: 'minus' }) }>{ count }</div>
+  return <div ref={divRef} onClick={ () => dispatchCount({ type: 'minus' }) }>{ count }</div>
 }
 
 export default MyHooks;
